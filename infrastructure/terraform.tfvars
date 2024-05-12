@@ -22,8 +22,6 @@ load_balancer_sku = "standard"
 network_plugin = "azure"
 network_plugin_mode = "overlay"
 network_policy = "calico"
-admin_group_object_ids = ["ac46a79c-505c-4b60-8ee4-b69a370ec4ac"]
-#admin_group_object_ids = ["20f3de49-db1c-4c60-af56-cc9494ed502d"]
 ########## Target Git repository properties ##########
 github_user = "Bkassh"
 github_token = "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"

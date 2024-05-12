@@ -1,7 +1,3 @@
-variable "admin_group_object_ids" {
-  type        = list(string)
-  description = "A list of Object IDs of Azure Active Directory Groups which should have Admin Role on the Cluster"
-}
 variable "resource_group_name" {
   type        = string
   description = "String containing Resource Group name"

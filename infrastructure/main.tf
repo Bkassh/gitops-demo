@@ -26,10 +26,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   node_resource_group           = var.node_resource_group
 
   azure_active_directory_role_based_access_control {
-    managed                = true
     azure_rbac_enabled     = true
-    # Grant Cluster Admin to AzureAD object ids supplied at runtime
-    admin_group_object_ids = var.admin_group_object_ids
   }
   network_profile {
     load_balancer_sku    = var.load_balancer_sku
@@ -73,11 +70,4 @@ resource "azurerm_kubernetes_cluster_node_pool" "default" {
   max_pods              = var.max_pods
   vm_size               = var.vm_size
   os_type               = var.os_type
-}
-
-resource "azurerm_role_assignment" "clusteradmin-rbacclusteradmin" {
-  for_each             = toset(var.admin_group_object_ids)
-  scope                = azurerm_kubernetes_cluster.k8s.id
-  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
-  principal_id         = each.value
 }
