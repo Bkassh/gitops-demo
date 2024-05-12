@@ -25,10 +25,6 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   dns_prefix                    = var.dns-prefix # The "dns_prefix" must begin or end with a letter or number, contain only letters, numbers, and '-' and be 1 to 54 characters in length
   node_resource_group           = var.node_resource_group
 
-  azure_active_directory_role_based_access_control {
-    managed                = true
-    azure_rbac_enabled     = true
-  }
   network_profile {
     load_balancer_sku    = var.load_balancer_sku
     network_plugin       = var.network_plugin
