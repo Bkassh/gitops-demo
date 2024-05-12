@@ -26,6 +26,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   node_resource_group           = var.node_resource_group
 
   azure_active_directory_role_based_access_control {
+    managed                = true
     azure_rbac_enabled     = true
   }
   network_profile {
