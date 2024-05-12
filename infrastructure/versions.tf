@@ -27,10 +27,10 @@ terraform {
   }
   backend "remote" {
 		hostname = "app.terraform.io"
-		organization = "Bkassh-Terraform"
+		organization = "Bkassh-Terraform-Demo"
 
 		workspaces {
-			name = "aks4compredict"
+			name = "compredict-demo"
 		}
 	}
 }
