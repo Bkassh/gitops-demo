@@ -1,4 +1,4 @@
-name: Azure K8s Cluster monitoring with Prometheus and Grafana for Compredict GitOps Demo
+name: 1. Create Azure K8s Cluster for Compredict GitOps Demo and monitor with Prometheus and Grafana
 on:
   workflow_dispatch:
 
