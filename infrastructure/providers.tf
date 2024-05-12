@@ -30,7 +30,7 @@ terraform {
 		organization = "Bikash-Terraform-Demo"
 
 		workspaces {
-			name = "compredict-demo"
+			name = "compredict-aks-demo"
 		}
 	}
 }
