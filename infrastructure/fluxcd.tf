@@ -15,11 +15,6 @@ resource "azurerm_kubernetes_cluster_extension" "extension" {
   }
 }
 
-resource "local_file" "kubeconfig" {
-  filename = "mykubeconfig"
-  content  = azurerm_kubernetes_cluster.k8s.kube_config_raw
-}
-
 resource "kubernetes_secret" "secret" {
   metadata {
     name      = "${var.github_repo_name}-repo-secrets"
@@ -32,7 +27,6 @@ resource "kubernetes_secret" "secret" {
   }
 
   depends_on = [
-    local_file.kubeconfig,
     azurerm_kubernetes_cluster_extension.extension
   ]
 }
@@ -53,8 +47,16 @@ resource "azurerm_kubernetes_flux_configuration" "fluxconfig" {
   }
 
   kustomizations {
-    name                       = "dev-app"
-    path                       = "./overlays/dev"
+    name                       = "stage-app"
+    path                       = "./app/staging"
+    garbage_collection_enabled = true
+    recreating_enabled         = true
+    sync_interval_in_seconds   = 60
+  }
+
+  kustomizations {
+    name                       = "prod-app"
+    path                       = "./app/production"
     garbage_collection_enabled = true
     recreating_enabled         = true
     sync_interval_in_seconds   = 60
