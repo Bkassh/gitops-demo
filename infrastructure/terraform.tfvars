@@ -25,5 +25,5 @@ network_policy = "calico"
 ########## Target Git repository properties ##########
 github_user = "Bkassh"
 github_token = "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"
-github_repo_name = "infrastructure-compredict"
+github_repo_name = "compredict-demoapp"
 github_repo_branch = "main"
