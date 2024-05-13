@@ -1,3 +1,6 @@
+## ---------------------------------------------------
+# Variables for Resource Group Creation
+## ---------------------------------------------------
 variable "resource_group_name" {
   type        = string
   description = "String containing Resource Group name"
@@ -6,6 +9,10 @@ variable "resource_group_location" {
   type        = string
   description = "String containing Resource Group location"
 }
+
+## ---------------------------------------------------
+# Variables for Azure K8s Cluster Creation
+## ---------------------------------------------------
 variable "aks_name" {
   type        = string
   description = "String containing AKS Cluster name"
@@ -101,4 +108,22 @@ variable "github_repo_name" {
 variable "github_repo_branch" {
   type        = string
   description = "String containing Github Repository branch name"
+}
+
+## ---------------------------------------------------
+# Variables for Azure Log Analytics
+## ---------------------------------------------------
+variable "log_analytics_workspace_sku" {
+  description = "(Optional) Specifies the sku of the log analytics workspace"
+  type        = string
+  default     = "PerGB2018"
+  validation {
+    condition     = contains(["Free", "Standalone", "PerNode", "PerGB2018"], var.log_analytics_workspace_sku)
+    error_message = "The log analytics sku is incorrect."
+  }
+}
+variable "log_analytics_retention_days" {
+  description = " (Optional) Specifies the workspace data retention in days. Possible values are either 7 (Free Tier only) or range between 30 and 730."
+  type        = number
+  default     = 30
 }
