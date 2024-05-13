@@ -24,6 +24,6 @@ network_plugin_mode = "overlay"
 network_policy = "calico"
 ########## Target Git repository properties ##########
 github_user = "Bkassh"
-github_token = "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"
+github_token = "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"
 github_repo_name = "compredict-demoapp"
 github_repo_branch = "main"
