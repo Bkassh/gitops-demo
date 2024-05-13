@@ -5,6 +5,7 @@ resource "random_string" "username" {
   length  = 8
   special = false
   upper   = false
+  numeric = false
 }
 
 ## ---------------------------------------------------
