@@ -46,7 +46,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     type = var.identity_type
   }
   linux_profile {
-    admin_username = "adm-"+random_string.username.result
+    admin_username = random_string.username.result
     ssh_key {
       key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey
     }
