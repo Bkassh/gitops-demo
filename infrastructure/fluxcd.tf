@@ -47,16 +47,8 @@ resource "azurerm_kubernetes_flux_configuration" "fluxconfig" {
   }
 
   kustomizations {
-    name                       = "stage-app"
-    path                       = "./app/staging"
-    garbage_collection_enabled = true
-    recreating_enabled         = true
-    sync_interval_in_seconds   = 60
-  }
-
-  kustomizations {
-    name                       = "prod-app"
-    path                       = "./app/production"
+    name                       = "app"
+    path                       = "./app"
     garbage_collection_enabled = true
     recreating_enabled         = true
     sync_interval_in_seconds   = 60
