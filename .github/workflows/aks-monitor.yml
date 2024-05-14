@@ -2,21 +2,21 @@ name: 1. Create Azure K8s Cluster for Compredict GitOps Demo and monitor with Pr
 on:
   workflow_dispatch:
 
-permissions:
+permissions:                                                                   # Gain permissions
       id-token: write
       contents: read
-jobs: 
+jobs:                                                                          # Single job name having multiple tasks
   AKS-Cluster-Monitoring:
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: infrastructure
+        working-directory: infrastructure                                      # Run the commands in the "infrastructure" directory where the tf files are present
     steps:
-      - name: Checkout
+      - name: Checkout                                                         # Step to do checkout
         uses: actions/checkout@v3.1.0
         
-      - name: 'Az CLI login'
+      - name: 'Az CLI login'                                                   # Step that uses SVN OIDC (Open ID Connect based Authentication) to get access to my Azure Subscription
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -31,32 +31,32 @@ jobs:
         uses: hashicorp/setup-terraform@v2.0.2
         with:
           terraform_version: latest
-          cli_config_credentials_token: ${{ secrets.TFC_TOKEN_ID }}
+          cli_config_credentials_token: ${{ secrets.TFC_TOKEN_ID }}           # Terraform cloud Token ID
 
-      - name: Terraform Init
+      - name: Terraform Init                                                  # Step to initialize the working directory and download the necessary provider plugins and modules and set up the backend for storing infrastructure state
         id: init
         run: terraform init
       
-      - name: Terraform Validate
+      - name: Terraform Validate                                              # Step to verify the correctness of the Terraform configuration files
         id: validate
         run: terraform validate
 
-      - name: Terraform Plan
+      - name: Terraform Plan                                                  # Step to create a dry-run, determining what actions are necessary to achieve the desired state defined in the Terraform configuration files
         id: plan
         run: terraform plan
         continue-on-error: true
 
-      - name: Terraform Plan Status
+      - name: Terraform Plan Status                                           # Step to check terraform plan status and exit the process on failure
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform Apply
+      - name: Terraform Apply                                                 # Step to apply the changes with approval consent, that is required to reach the desired state of the configuration, thereby creating, modifying, or deleting the infrastructure resources as necessary
         run: terraform apply -auto-approve
 
-      - name: Terraform Output
+      - name: Terraform Output                                                # Step to see the Output after successful terraform apply
         run: terraform output
 
-      - name: Azure K8s Cluster monitoring Enabler
+      - name: Azure K8s Cluster monitoring Enabler                            # Step to enable Prometheus and Grafana on the created AKS Cluster
         run: |
           az aks get-credentials -n "aks-compredict" -g "rg-compredict"
           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts

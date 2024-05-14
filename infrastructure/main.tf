@@ -69,4 +69,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "default" {
   max_pods              = var.max_pods                          # I haveset the maximum number of pods that can be deployed to 10
   vm_size               = var.vm_size                           # Set to same value as the Default node pool
   os_type               = var.os_type                           # Set to same value as the Default node pool
+  node_labels = {
+    "app"           = "compredictdemo"                     # Label added to configure deployed pod affinity
+    "environment"   = var.aks_environment                       # Label added to configure deployed pod affinity
+  } 
 }

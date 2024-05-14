@@ -3,20 +3,20 @@ on:
   workflow_dispatch:
 
 permissions:
-      id-token: write
+      id-token: write                                                                   # Gain permissions
       contents: read
-jobs: 
+jobs:                                                                                   # Single job name having multiple tasks
   AKS-Cluster-Monitoring:
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: infrastructure
+        working-directory: infrastructure                                               # Run the commands in the "infrastructure" directory where the tf files are present
     steps:
-      - name: Checkout
+      - name: Checkout                                                                  # Step to do checkout
         uses: actions/checkout@v3.1.0
         
-      - name: 'Az CLI login'
+      - name: 'Az CLI login'                                                            # Step that uses SVN OIDC (Open ID Connect based Authentication) to get access to my Azure Subscription
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -31,21 +31,21 @@ jobs:
         uses: hashicorp/setup-terraform@v2.0.2
         with:
           terraform_version: latest
-          cli_config_credentials_token: ${{ secrets.TFC_TOKEN_ID }}
+          cli_config_credentials_token: ${{ secrets.TFC_TOKEN_ID }}                    # Terraform cloud Token ID
 
-      - name: Terraform Init
+      - name: Terraform Init                                                           # Step to initialize the working directory and download the necessary provider plugins and modules and set up the backend for storing infrastructure state
         id: init
         run: terraform init
       
-      - name: Terraform Validate
+      - name: Terraform Validate                                                       # Step to verify the correctness of the Terraform configuration files     
         id: validate
         run: terraform validate
 
-      - name: Terraform Plan Status
+      - name: Terraform Plan Status                                                    # Step to check terraform plan status and exit the process on failure
         if: steps.validate.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform Destroy
+      - name: Terraform Destroy                                                        # Step to terminate resources defined in the Terraform configuration
         run: terraform destroy -auto-approve
 
       - name: Azure K8s Cluster config cleanup
