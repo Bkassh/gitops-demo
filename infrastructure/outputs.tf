@@ -1,3 +1,8 @@
+## ---------------------------------------------------
+# The Output values to be shown after Terraform Apply.
+# I have kept most of Sensitive values to follow best 
+# practice ut can be adjusted as per requirement.
+## ---------------------------------------------------
 output "resource_group_name" {
   value = azurerm_resource_group.rg.name
 }

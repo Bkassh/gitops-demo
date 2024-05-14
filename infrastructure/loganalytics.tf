@@ -1,4 +1,6 @@
-# Create Log Analytics Workspace 
+## ------------------------------------------------------------------------
+# To create Log Analytics Workspace to aggregrate logs from AKS nodes and pods
+## ------------------------------------------------------------------------
 resource "azurerm_log_analytics_workspace" "workspace" {
   name                = lower("log-analytics-workspace-${var.aks_name}")
   resource_group_name = azurerm_resource_group.rg.name
@@ -13,7 +15,9 @@ resource "azurerm_log_analytics_workspace" "workspace" {
   ]
 }
 
-# Create log analytics workspace solution
+## ------------------------------------------------------------------------
+# To create log analytics workspace solution to get container insights
+## ------------------------------------------------------------------------
 resource "azurerm_log_analytics_solution" "workspace_solution" {
   solution_name         = "ContainerInsights"
   resource_group_name   = azurerm_resource_group.rg.name
