@@ -108,7 +108,7 @@ this deployed the analytics resources successfully and now when I went to the lo
 ![alt text](images/image-15.png)
 With this I could successfully integrate a log aggregation tool in my AKS Cluster and check on the node and pod insights available in the AKS Cluster.
 
-### 6. Destruction of the AKS Cluster with the use of Manual steps
+### 6. Destruction of the AKS Cluster without the use of Manual steps
 
 The Github Actions "2. Destroy Azure K8s Cluster for Compredict GitOps Demo" workflow, when initiated completely destroys the AKS Cluster and its resources without the need of any manual intervention.
 ![alt text](images/image-16.png)
