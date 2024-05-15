@@ -1,6 +1,6 @@
 ########## Resource Group ##########
 resource_group_name = "rg-compredict"
-resource_group_location = "eastus2"
+resource_group_location = "westeurope"
 ########## Azure Kubernetes Cluster ##########
 aks_name = "aks-compredict"
 dns-prefix = "dns-compredict"
@@ -11,7 +11,7 @@ node_pool_type = "User"
 node_count = 1
 min_count = 1
 max_count = 5
-max_pods = 60
+max_pods = 10
 vm_size = "Standard_B2ms"
 os_type = "Linux"
 identity_type = "SystemAssigned"
@@ -24,7 +24,6 @@ network_plugin_mode = "overlay"
 network_policy = "calico"
 ########## Target Git repository properties ##########
 github_user = "Bkassh"
-github_token = "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"
 github_repo_name = "compredict-demoapp"
 github_repo_branch = "main"
 ########## Azure Log Analytics properties ##########

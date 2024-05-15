@@ -1,13 +1,13 @@
 ############################ Container Insights enablement ############################################
 $resourceGroupName = "rg-compredict"
-$deploymentName = "containerinsights"
+$deploymentName = "ContainerInsights"
 $templateFile = "C:\path\to\your\ContainerInsightsExistingClusterOnboarding.json"
 $templateParameterFile = "C:\path\to\your\ContainerInsightsExistingClusterParam.json"
 
 $params = @{"aksResourceId"= "/path/to/your/aksResourceId"
-            "aksResourceLocation"= "eastus2"
+            "aksResourceLocation"= "westeurope"
             "workspaceResourceId"= "/path/to/your/workspaceResourceId"
-            "workspaceRegion"= "eastus2"
+            "workspaceRegion"= "westeurope"
             "enableContainerLogV2"= $true
             "enableSyslog"= $false
             "syslogLevels"= @( "Debug", "Info", "Notice", "Warning", "Error", "Critical", "Alert", "Emergency" )
