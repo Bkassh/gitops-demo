@@ -72,7 +72,9 @@ The deployed nginx application is viewed as follows.
 The Github Actions "1. Create Azure K8s Cluster for Compredict GitOps Demo and monitor with Prometheus and Grafana" workflow, applies the complete change (AKS Cluster Creation + Flux install + enable Prometheus and Grafana) as the terraform files in the "infrasttructure" folder are in the same Terraform state.
 
 In the workflow after AKS cluster creation, in the step "AKS Monitoring Enabler", the helm commands adds, updates and installs the Prometheus and Grafana repository to the AKS Cluster to enable the respective monitoring tools. A new namespace named "monitoring" is also created.
+
 ![alt text](images/image-10.png)
+
 After a successful "terraform apply" I set the AKS cluster kubeconfig in my system to login to the AKS cluster and did a port forward to access the Grafana Dashboards using kubectl command
 The commands are :
 1. "az aks get-credentials --resource-group rg-compredict --name aks-compredict"
@@ -99,6 +101,7 @@ I would suggest to download the whole "container-analytics" folder into your win
 ![alt text](images/image-12.png)
 
 After that I had to run the deployment command as shown below:
+
 ![alt text](images/image-13.png)
 
 this deployed the analytics resources successfully and now when I went to the loganalytics workspace namely "log-analytics-workspace-aks-compredict" and clicked on the Logs menu which showed the following metrics
