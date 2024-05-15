@@ -26,7 +26,7 @@ Now, I will explain the Summary points in detail and the steps I followed which 
 
 ### 1. Provision AKS Cluster using Terraform
 
-#### Why did I choose Azure Kubernetes Cluster?
+#### Why did I choose Azure Kubernetes Service Cluster?
 1. I have a valid Azure Subscription which I use to test, learn and keep myself updated with the ever-growing universe of DevOps, GitOps and MLOps.
 2. I am Microsoft Certified on Azure Fundamentals (AZ-104) and Fundamentals of Generative AI (AI-900)
 3. AKS Cluster provides a fully managed Kubernetes cluster, making it easy to deploy, manage, and scale containerized applications on a large scale without worrying about the underlying infrastructure.
@@ -41,11 +41,11 @@ I securely deployed an AKS Cluster via Github Action workflows that ran my terra
 3. I also created Federated Credentials in the SVN app as shown below, where I provided the Github username / organisation name, repository name and branch details.
 ![alt text](images/image-3.png)
 4. I assigned a role to the SVN app as a "Contributor" so that it has the necessary rights in the Azure Subscription, whose secrets and federated credentials will be used for Github OIDC authentication to my Azure Subscription.
-5. Now in the Github repository (compredict-demo) settings (Not user account settings) I create the secrets by navigating as below.
+5. Now in the Github repository (compredict-demo) settings (Not user account settings) I created the secrets by navigating as below.
 ![alt text](images/image-4.png)
-6. In the actions I add the Client_ID, Tenant_ID and Subscription_ID which I obtained from the SVN app overview like below.
+6. In the actions I added the Client_ID, Tenant_ID and Subscription_ID which I obtained from the SVN app overview like below.
 ![alt text](image-5.png)
-7. Now in Terraform Cloud I create an API token (shown below) which I added as an action secret in Github repository naming as TFC_TOKEN_ID as shown in the above picture.
+7. Now in Terraform Cloud I created an API token (shown below) which I added as an action secret in Github repository naming as TFC_TOKEN_ID as shown in the above picture.
 ![alt text](images/image-6.png)
 8. After this in my Terraform Cloud workspace I added the following variables with the same values obtained from the SVN app overview with the secret value being a new addition as shown below. The workspace variable had to follow the exact naming convention and "Category" as shown below or else the workflow would break. I wasted a lot of time scratching and debug why my workflow was breaking as I was not following the exact naming convention initially.
 ![alt text](images/image-7.png)
@@ -69,23 +69,24 @@ The deployed nginx application is viewed as follows.
 ![alt text](images/image-9.png)
 
 ### 4. Integrate Prometheus and Grafana for monitoring my Kubernetes resources
+
 The Github Actions "1. Create Azure K8s Cluster for Compredict GitOps Demo and monitor with Prometheus and Grafana" workflow, applies the complete change (AKS Cluster Creation + Flux install + enable Prometheus and Grafana) as the terraform files in the "infrasttructure" folder are in the same Terraform state.
 
 In the workflow after AKS cluster creation, in the step "AKS Monitoring Enabler", the helm commands adds, updates and installs the Prometheus and Grafana repository to the AKS Cluster to enable the respective monitoring tools. A new namespace named "monitoring" is also created.
 
 ![alt text](images/image-10.png)
 
-After a successful "terraform apply" I set the AKS cluster kubeconfig in my system to login to the AKS cluster and did a port forward to access the Grafana Dashboards using kubectl command
+After a successful "terraform apply" I set the AKS cluster kubeconfig in my system to login to the AKS cluster and did a port forward to access the Grafana Dashboards using kubectl command.
 The commands are :
 1. "az aks get-credentials --resource-group rg-compredict --name aks-compredict"
 2. "kubectl port-forward svc/prometheus-grafana 8080:80 --namespace monitoring"
 
-After this I could access the Grafana dashboards in url 127.0.0.1:8080/login using the Username "admin" and Password is "prom-operator". The dashboards are shown below:
+After this I could access the Grafana dashboards in url 127.0.0.1:8080/login using the Username as "admin" and Password as "prom-operator". One of the dashboard is shown below:
 ![alt text](images/image17.png)
 
-I also run the below command to check the status of the prometheus pods:
+I also had run the below command to check the status of the prometheus pods:
  kubectl get pods -l "release=prometheus" --namespace monitoring
-I could successfully see the prometheus pods running as shown below.
+I could successfully see the prometheus pods as shown below.
 ![alt text](images/image-11.png)
 
 ### 5. Integrate Azure Log Analytics to aggregate logs from the nodes and pods available in the created AKS Cluster
@@ -104,7 +105,7 @@ After that I had to run the deployment command as shown below:
 
 ![alt text](images/image-13.png)
 
-this deployed the analytics resources successfully and now when I went to the loganalytics workspace namely "log-analytics-workspace-aks-compredict" and clicked on the Logs menu which showed the following metrics
+this deployed the analytics resources successfully and now when I went to the loganalytics workspace namely "log-analytics-workspace-aks-compredict" and clicked on the Logs menu, it showed the following metrics
 ![alt text](images/image-15.png)
 With this I could successfully integrate a log aggregation tool in my AKS Cluster and check on the node and pod insights available in the AKS Cluster.
 
@@ -114,7 +115,7 @@ The Github Actions "2. Destroy Azure K8s Cluster for Compredict GitOps Demo" wor
 ![alt text](images/image-16.png)
 
 With this I have explained in details how I have carried out the task that Compredict Team has provided. I thank them again for their planning of the task.
-I am new to writing README files, I have double checked for error while writing but if something pops up, then kindly excuse.
+I am new to writing README files, I have double checked for error while writing but if something wrong pops up, then kindly excuse.
 Looking forward for more.
 
 --Bikash Dutta
