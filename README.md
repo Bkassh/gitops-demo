@@ -44,7 +44,7 @@ I securely deployed an AKS Cluster via Github Action workflows that ran my terra
 5. Now in the Github repository (compredict-demo) settings (Not user account settings) I created the secrets by navigating as below.
 ![alt text](images/image-4.png)
 6. In the actions I added the Client_ID, Tenant_ID and Subscription_ID which I obtained from the SVN app overview like below.
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 7. Now in Terraform Cloud I created an API token (shown below) which I added as an action secret in Github repository naming as TFC_TOKEN_ID as shown in the above picture.
 ![alt text](images/image-6.png)
 8. After this in my Terraform Cloud workspace I added the following variables with the same values obtained from the SVN app overview with the secret value being a new addition as shown below. The workspace variable had to follow the exact naming convention and "Category" as shown below or else the workflow would break. I wasted a lot of time scratching and debug why my workflow was breaking as I was not following the exact naming convention initially.
