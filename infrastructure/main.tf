@@ -27,7 +27,8 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   node_resource_group           = var.node_resource_group                 # The name of the AKS Cluster node Resource Group
   azure_policy_enabled          = true                                    # Standed security policy provided by Azure after the deprecation of Pod Security policy in October 15th, 2020
   depends_on = [
-    azurerm_resource_group.rg
+    azurerm_resource_group.rg,
+    azurerm_log_analytics_workspace.workspace
   ]
 
   network_profile {
@@ -58,6 +59,9 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     ssh_key {
       key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey    # Key data of the AKS Cluster
     }
+  }
+  oms_agent {
+    log_analytics_workspace_id = azurerm_log_analytics_workspace.workspace.id # Azure Log Analytics Enabled
   }
   tags = {
     Environment = var.aks_environment                                         # Tye of Environment tag of the AKS Cluster
