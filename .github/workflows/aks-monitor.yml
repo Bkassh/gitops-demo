@@ -43,7 +43,7 @@ jobs:                                                                          #
 
       - name: Terraform Plan                                                  # Step to create a dry-run, determining what actions are necessary to achieve the desired state defined in the Terraform configuration files
         id: plan
-        run: terraform plan --var="github_token=${{ secrets.TF_VAR_GITHUB_TOKEN }}"
+        run: terraform plan
         continue-on-error: true
 
       - name: Terraform Plan Status                                           # Step to check terraform plan status and exit the process on failure
@@ -52,7 +52,7 @@ jobs:                                                                          #
 
       - name: Terraform Apply                                                 # Step to apply the changes with approval consent, that is required to reach the desired state of the configuration, thereby creating, modifying, or deleting the infrastructure resources as necessary
         id: apply
-        run: terraform apply --var="github_token=${{ secrets.TF_VAR_GITHUB_TOKEN }}" --auto-approve
+        run: terraform apply --auto-approve
 
       - name: Terraform Output                                                # Step to see the Output after successful terraform apply
         id: output
