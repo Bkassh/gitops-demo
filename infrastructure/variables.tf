@@ -100,6 +100,7 @@ variable "github_user" {
 variable "github_token" {
   type        = string
   description = "String containing Github Repository token(classic)"
+  default     = ""
 }
 variable "github_repo_name" {
   type        = string
