@@ -22,7 +22,6 @@ Now, I will explain the Summary points in detail and the steps I followed which 
 3. Git, AzureCLI, Terraform and Kubectl installed in the system (I am using Windows) and integrated with the VSCode terminal.
 4. A Free Github account with provisions to create Repositories, Personal Access Tokens.
 5. A Free Account in HCP Terraform Cloud (https://app.terraform.io/)
-6. Windows Powershell ISE application.
 
 ### 1. Provision AKS Cluster using Terraform
 
@@ -55,7 +54,7 @@ I securely deployed an AKS Cluster via Github Action workflows that ran my terra
 
 ### 2. Install Flux to the AKS Cluster and use it to Bootstrap the Cluster with a New Git Repository
 
-With running of the Github Actions "1. Create Azure K8s Cluster for Compredict GitOps Demo and monitor with Prometheus and Grafana" workflow, the AKS Cluster is created and the Flux is installed in the AKS Cluster. This is because the "terraform apply auto-approve" command applies the complete change (AKS Cluster Creation + Flux install) as the terraform files in the "infrasttructure" folder are in the same Terraform state.
+With running of the Github Actions "1. Create Azure K8s Cluster for Compredict GitOps Demo and monitor with Prometheus and Grafana" workflow, the AKS Cluster is created and the Flux is installed in the AKS Cluster. This is because the "terraform apply auto-approve" command applies the complete change (AKS Cluster Creation + Flux install) as the terraform files in the "infrastructure" folder are in the same Terraform state.
 
 In fluxcd.tf the kubernetes_secret resource requires a Personal Access Token created in the Github Account settings which authenticates the Flux Kustomization configuration to read the commits in the Git repository mentioned path (./app) and manage the deployment in the AKS cluster.
 
@@ -96,17 +95,9 @@ The Github Actions "1. Create Azure K8s Cluster for Compredict GitOps Demo and m
 After successful cluster creation I was able to see the Azure Log analytics workspace as shown below.
 ![alt text](images/image-14.png)
 
-Now I opened the Windows Powershell ISE application in my windows system and provisioned login to my azure subscription on the app using general poweshell commands and then had to open the "ARMDeployment.ps1" poweshell script available in the container-analytics folder. 
-
-I would suggest to download the whole "container-analytics" folder into your windows system. Now I had to update the required parameters in the "ContainerInsightsExistingClusterOnboarding.json", "ContainerInsightsExistingClusterParam.json" and "ARMDeployment.ps1" poweshell script with the Azure Subscription and AKS cluster parameters. Some of them are shown below.
-![alt text](images/image-12.png)
-
-After that I had to run the deployment command as shown below:
-
-![alt text](images/image-13.png)
-
-this deployed the analytics resources successfully and now when I went to the loganalytics workspace namely "log-analytics-workspace-aks-compredict" and clicked on the Logs menu, it showed the following metrics
+In the workspace I opened the Queries Tab followed by "Containers" sub-menu. There were many pre-defined queries available out of which I selected "Readiness status per node" and set the Time range to "Last 30 minutes" an I was greeted with the Chart shown below:
 ![alt text](images/image-15.png)
+
 With this I could successfully integrate a log aggregation tool in my AKS Cluster and check on the node and pod insights available in the AKS Cluster.
 
 ### 6. Destruction of the AKS Cluster without the use of Manual steps
