@@ -43,7 +43,7 @@ jobs:                                                                          #
 
       - name: Terraform Plan                                                  # Step to create a dry-run, determining what actions are necessary to achieve the desired state defined in the Terraform configuration files
         id: plan
-        run: terraform plan
+        run: terraform plan --var="github_token=${{ secrets.TF_VAR_GITHUB_TOKEN }}"
         continue-on-error: true
 
       - name: Terraform Plan Status                                           # Step to check terraform plan status and exit the process on failure
@@ -51,9 +51,11 @@ jobs:                                                                          #
         run: exit 1
 
       - name: Terraform Apply                                                 # Step to apply the changes with approval consent, that is required to reach the desired state of the configuration, thereby creating, modifying, or deleting the infrastructure resources as necessary
-        run: terraform apply -auto-approve
+        id: apply
+        run: terraform apply --var="github_token=${{ secrets.TF_VAR_GITHUB_TOKEN }}" --auto-approve
 
       - name: Terraform Output                                                # Step to see the Output after successful terraform apply
+        id: output
         run: terraform output
 
       - name: Azure K8s Cluster monitoring Enabler                            # Step to enable Prometheus and Grafana on the created AKS Cluster
