@@ -45,6 +45,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     vm_size             = var.vm_size                   # VM used. Used Standard_B2ms as it is ideal for proof of concepts, small databases and development build environments
     ultra_ssd_enabled   = var.is_ultra_ssd_enabled      # Boolean flag to enable / disable the capacity of Data Disks of the UltraSSD_LRS storage account type be supported on the VM. Set to false in the Project
     scale_down_mode     = var.scale_down_mode           # As Autoscaling is enabled, the Scaled downed nodes can be set to be Deallocated or Deleted with this tag. I have set to "Delete"
+    node_labels = {
+      "app"           = "compredictdemodev"             # Label added to configure deployed pod affinity
+      "environment"   = var.aks_environment             # Label added to configure deployed pod affinity
+    }
   }
   identity {
     type = var.identity_type                                                  # Identity type
@@ -73,7 +77,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "default" {
   vm_size               = var.vm_size                           # Set to same value as the Default node pool
   os_type               = var.os_type                           # Set to same value as the Default node pool
   node_labels = {
-    "app"           = "compredictdemo"                          # Label added to configure deployed pod affinity
-    "environment"   = var.aks_environment                       # Label added to configure deployed pod affinity
+    "app"           = "compredictdemoprod"                      # Label added to configure deployed pod affinity
+    "environment"   = "Production"                              # Label added to configure deployed pod affinity
   }
 }
