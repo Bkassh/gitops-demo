@@ -27,6 +27,7 @@ jobs:                                                                          #
         run: |
           az account show
           az group list
+          rm -rf ~/.kube
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.2
         with:
