@@ -41,12 +41,13 @@ jobs:                                                                           
         id: validate
         run: terraform validate
 
-      - name: Terraform Plan Status                                                    # Step to check terraform plan status and exit the process on failure
+      - name: Terraform Validate Status                                                    # Step to check terraform plan status and exit the process on failure
         if: steps.validate.outcome == 'failure'
         run: exit 1
 
       - name: Terraform Destroy                                                        # Step to terminate resources defined in the Terraform configuration
-        run: terraform destroy -auto-approve
+        id: destroy
+        run: terraform destroy --var="github_token=${{ secrets.TF_VAR_GITHUB_TOKEN }}" --auto-approve
 
       - name: Azure K8s Cluster config cleanup
         run: |
