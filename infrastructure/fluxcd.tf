@@ -15,8 +15,7 @@ resource "azurerm_kubernetes_cluster_extension" "extension" {
     "notification-controller.enabled"     = true,                           # notification-controller is enabled asbest practice policy
   }
   depends_on = [
-    azurerm_resource_group.rg,
-    azurerm_kubernetes_cluster.k8s
+    azurerm_resource_group.rg
   ]
 }
 

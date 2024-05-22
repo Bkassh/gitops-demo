@@ -11,8 +11,7 @@ resource "azurerm_log_analytics_workspace" "workspace" {
     Environment = var.aks_environment
   }
   depends_on = [
-    azurerm_resource_group.rg,
-    azurerm_kubernetes_cluster.k8s
+    azurerm_resource_group.rg
   ]
 }
 
