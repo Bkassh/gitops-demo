@@ -14,6 +14,10 @@ resource "azurerm_kubernetes_cluster_extension" "extension" {
     "image-reflector-controller.enabled"  = true,                           # image-reflector-controller is enabled as best practice policy
     "notification-controller.enabled"     = true,                           # notification-controller is enabled asbest practice policy
   }
+  depends_on = [
+    azurerm_resource_group.rg,
+    azurerm_kubernetes_cluster.k8s
+  ]
 }
 
 resource "kubernetes_secret" "secret" {

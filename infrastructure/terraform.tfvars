@@ -1,6 +1,6 @@
 ########## Resource Group ##########
 resource_group_name = "rg-compredict"
-resource_group_location = "westeurope"
+resource_group_location = "eastus2"
 ########## Azure Kubernetes Cluster ##########
 aks_name = "aks-compredict"
 dns-prefix = "dns-compredict"

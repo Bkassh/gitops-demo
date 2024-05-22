@@ -19,4 +19,8 @@ resource "azapi_resource" "ssh_public_key" {
   name      = random_pet.ssh_key_name.id
   location  = azurerm_resource_group.rg.location                     # Same as AKS Cluster Resource group location
   parent_id = azurerm_resource_group.rg.id                           # ID of AKS Cluster Resource group
+  depends_on = [
+    random_pet.ssh_key_name,
+    azurerm_resource_group.rg
+  ]
 }

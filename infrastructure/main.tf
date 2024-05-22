@@ -26,6 +26,9 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   dns_prefix                    = var.dns-prefix                          # The "dns_prefix" must begin or end with a letter or number, contain only letters, numbers, and '-' and be 1 to 54 characters in length
   node_resource_group           = var.node_resource_group                 # The name of the AKS Cluster node Resource Group
   azure_policy_enabled          = true                                    # Standed security policy provided by Azure after the deprecation of Pod Security policy in October 15th, 2020
+  depends_on = [
+    azurerm_resource_group.rg
+  ]
 
   network_profile {
     load_balancer_sku    = var.load_balancer_sku    # The type of Loadbalancer SKU
@@ -70,7 +73,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "default" {
   vm_size               = var.vm_size                           # Set to same value as the Default node pool
   os_type               = var.os_type                           # Set to same value as the Default node pool
   node_labels = {
-    "app"           = "compredictdemo"                     # Label added to configure deployed pod affinity
+    "app"           = "compredictdemo"                          # Label added to configure deployed pod affinity
     "environment"   = var.aks_environment                       # Label added to configure deployed pod affinity
-  } 
+  }
 }

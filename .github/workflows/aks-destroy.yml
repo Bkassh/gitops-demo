@@ -47,7 +47,7 @@ jobs:                                                                           
 
       - name: Terraform Destroy                                                        # Step to terminate resources defined in the Terraform configuration
         id: destroy
-        run: terraform destroy --var="github_token=${{ secrets.TF_VAR_GITHUB_TOKEN }}" --auto-approve
+        run: terraform destroy --auto-approve
 
       - name: Azure K8s Cluster config cleanup
         run: |
