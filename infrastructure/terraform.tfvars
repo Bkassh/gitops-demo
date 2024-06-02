@@ -1,10 +1,10 @@
 ########## Resource Group ##########
-resource_group_name = "rg-compredict"
+resource_group_name = "rg-myresourcegroup"
 resource_group_location = "eastus2"
 ########## Azure Kubernetes Cluster ##########
-aks_name = "aks-compredict"
-dns-prefix = "dns-compredict"
-node_resource_group = "rg-compredict-node"
+aks_name = "aks-myakscluster"
+dns-prefix = "dns-myakscluster"
+node_resource_group = "rg-myakscluster-node"
 node_pool_name = "nod4appdploy"
 default_node_pool_name = "system"
 node_pool_type = "User"
@@ -24,7 +24,7 @@ network_plugin_mode = "overlay"
 network_policy = "calico"
 ########## Target Git repository properties ##########
 github_user = "Bkassh"
-github_repo_name = "compredict-demoapp"
+github_repo_name = "my-demoapp"
 github_repo_branch = "main"
 ########## Azure Log Analytics properties ##########
 log_analytics_workspace_sku = "PerGB2018"
