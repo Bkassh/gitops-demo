@@ -1,4 +1,4 @@
-name: 2. Destroy Azure K8s Cluster for Compredict GitOps Demo
+name: 2. Destroy Azure K8s Cluster for GitOps Demo
 on:
   workflow_dispatch:
 
