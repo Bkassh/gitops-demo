@@ -1,4 +1,4 @@
-name: 1. Create Azure K8s Cluster for Compredict GitOps Demo and monitor with Prometheus and Grafana
+name: 1. Create Azure K8s Cluster for GitOps Demo and monitor with Prometheus and Grafana
 on:
   workflow_dispatch:
 
@@ -61,7 +61,7 @@ jobs:                                                                          #
 
       - name: Azure K8s Cluster monitoring Enabler                            # Step to enable Prometheus and Grafana on the created AKS Cluster
         run: |
-          az aks get-credentials -n "aks-compredict" -g "rg-compredict"
+          az aks get-credentials -n "aks-myakscluster" -g "rg-myresourcegroup"
           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
           helm repo update
           helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --create-namespace
