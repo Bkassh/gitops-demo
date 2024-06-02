@@ -34,7 +34,7 @@ terraform {
 		organization = "Bikash-Terraform-Demo"                          # My organization name in host
 
 		workspaces {
-			name = "compredict-aks-demo"                                  # The name of the workspace that I created in the host
+			name = "gitops-aks-demo"                                # The name of the workspace that I created in the host
 		}
 	}
 }
